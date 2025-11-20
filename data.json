@@ -1,0 +1,22 @@
+[
+  {
+    "question": "wifi not connecting",
+    "answer": "Try toggling airplane mode, forgetting the Wi-Fi network, and verifying the wireless adapter is enabled in Device Manager."
+  },
+  {
+    "question": "vpn not working",
+    "answer": "Check if the VPN client is up to date, verify your credentials, and try disconnecting/reconnecting. If it fails, reboot and test again on wired if possible."
+  },
+  {
+    "question": "outlook slow",
+    "answer": "Archive old mail, reduce the size of your OST file, disable unneeded add-ins, and restart Outlook. If issues persist, recreate the Outlook profile."
+  },
+  {
+    "question": "chrome not opening",
+    "answer": "End any stuck Chrome processes in Task Manager, then relaunch. If it still fails, rename the Chrome user profile folder and try again."
+  },
+  {
+    "question": "teams microphone not working",
+    "answer": "Check OS microphone permissions, confirm the correct input device in Teams settings, and test the mic in the system sound panel."
+  }
+]
