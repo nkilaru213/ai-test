@@ -1,40 +1,50 @@
 
 from flask import Flask, request, jsonify, make_response
-import json
-import os
+import json, os
+from difflib import SequenceMatcher
 
 app = Flask(__name__)
 
-KB_PATH = os.path.join(os.path.dirname(__file__), "dummy_kb.json")
-
-with open(KB_PATH) as f:
+with open(os.path.join(os.path.dirname(__file__), 'dummy_kb.json')) as f:
     KB = json.load(f)
 
-def find_answer(question: str) -> str:
-    q = question.lower()
-    for entry in KB:
-        for kw in entry.get("keywords", []):
-            if kw in q:
-                return entry.get("answer", "")
-    return "This is a demo AI assistant for the Endpoint team. I couldn't match your question exactly, but in a real system I would search policies, runbooks, and logs to generate a detailed answer."
+def sim(a, b):
+    return SequenceMatcher(None, a, b).ratio()
 
-@app.route("/ask", methods=["POST", "OPTIONS"])
+def find_best(q):
+    q = q.lower()
+    best = None
+    best_score = 0
+    suggestions = []
+
+    for entry in KB:
+        for kw in entry["keywords"]:
+            s = sim(q, kw)
+            if s > 0.2:
+                suggestions.append(kw)
+            if s > best_score:
+                best_score = s
+                best = entry
+
+    return best, best_score, suggestions
+
+@app.route('/ask', methods=['POST','OPTIONS'])
 def ask():
-    # Handle CORS preflight
-    if request.method == "OPTIONS":
-        resp = make_response("", 204)
+    if request.method=='OPTIONS':
+        resp = make_response("",204)
     else:
         data = request.get_json(silent=True) or {}
-        question = data.get("question", "")
-        answer = find_answer(question)
-        resp = jsonify({"answer": answer})
+        q = data.get("question","")
+        entry, score, sug = find_best(q)
 
-    # CORS headers
-    resp.headers["Access-Control-Allow-Origin"] = "*"
-    resp.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
-    resp.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        if score > 0.35:
+            resp = jsonify({"answer": entry["answer"], "suggestions": list(set(sug))[:3]})
+        else:
+            resp = jsonify({"answer": "I'm not fully sure. Try refining your question.", "suggestions": list(set(sug))[:3]})
+
+    resp.headers['Access-Control-Allow-Origin']='*'
+    resp.headers['Access-Control-Allow-Headers']='Content-Type'
+    resp.headers['Access-Control-Allow-Methods']='POST,OPTIONS'
     return resp
 
-if __name__ == "__main__":
-    # Run on port 5050 so it doesn't clash with frontend
-    app.run(host="0.0.0.0", port=5050, debug=True)
+app.run(port=5050, debug=True)

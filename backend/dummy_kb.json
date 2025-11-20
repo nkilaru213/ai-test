@@ -4,9 +4,25 @@
       "slow",
       "performance",
       "lag",
-      "sluggish"
+      "freeze",
+      "slowness"
     ],
-    "answer": "If your laptop is slow, start with a reboot, then check CPU/RAM usage, free disk space (aim for at least 10% free), and close heavy startup apps. If you still see issues, run the standard Endpoint Health script or raise a ticket with the device name and time of slowness."
+    "answer": "System performance issue: restart, check CPU/RAM, free disk space, close startup apps, run remediation."
+  },
+  {
+    "keywords": [
+      "wifi",
+      "wireless",
+      "internet"
+    ],
+    "answer": "Wi-Fi issue: forget network, reconnect, flush DNS, reboot, try another access point."
+  },
+  {
+    "keywords": [
+      "vpn",
+      "globalprotect"
+    ],
+    "answer": "VPN issue: verify internet, check date/time, restart VPN client, reload profile."
   },
   {
     "keywords": [
@@ -14,21 +30,7 @@
       "email",
       "mail"
     ],
-    "answer": "For Outlook not syncing: 1) Confirm you are online and VPN is connected if required. 2) Close and reopen Outlook. 3) Use Send/Receive > Update Folder. 4) If the problem persists, repair or recreate the Outlook profile and check mailbox size limits."
-  },
-  {
-    "keywords": [
-      "wifi",
-      "wi-fi",
-      "wireless"
-    ],
-    "answer": "If Wi-Fi keeps disconnecting: 1) Forget and reconnect to the corporate SSID. 2) Toggle airplane mode off and on. 3) Reboot your laptop. 4) Try another access point if available. If multiple users see the same issue, escalate as a network incident."
-  },
-  {
-    "keywords": [
-      "vpn"
-    ],
-    "answer": "For VPN issues: 1) Check you have internet access outside VPN. 2) Ensure time and date are correct (SSL depends on it). 3) Restart the VPN client. 4) If your profile looks corrupted, re-download it from the corporate portal. Capture error codes for support."
+    "answer": "Outlook sync: restart outlook, update folder, repair profile, check mailbox size."
   },
   {
     "keywords": [
@@ -36,36 +38,22 @@
       "piv",
       "badge"
     ],
-    "answer": "If the smart card/PIV is not detected: 1) Remove and reinsert the card. 2) Try a different USB port or reader. 3) Restart the smart card service or middleware. 4) Reboot the device. If the issue persists, test your card on another machine to isolate whether it is the card or the reader."
+    "answer": "Smart card: reinsert, try new port, restart service, reboot device."
   },
   {
     "keywords": [
       "install",
       "installation",
-      "setup"
+      "msi"
     ],
-    "answer": "When an application fails to install: 1) Confirm it is approved software. 2) Run the installer with elevated privileges if policy allows. 3) Check free disk space. 4) Clear temporary folders. 5) Review the error code or MSI log and share it with support if you raise a ticket."
+    "answer": "Installation failure: approve software, run as admin, clear temp, review error code."
   },
   {
     "keywords": [
       "patch",
       "update",
-      "windows update"
+      "kb"
     ],
-    "answer": "If a patch or Windows Update did not install: 1) Reboot to clear any pending updates. 2) Run Windows Update again. 3) Use the corporate patch dashboard to check device compliance. 4) For repeated failures, capture the update KB number and error and raise it to the Endpoint patching team."
-  },
-  {
-    "keywords": [
-      "automation",
-      "automate"
-    ],
-    "answer": "Good automation candidates for the Endpoint team include: onboarding and offboarding device builds, automatic software installs based on role, periodic health checks and remediation (disk cleanup, DNS flush, log collection), patch compliance reporting, and VPN certificate renewal workflows."
-  },
-  {
-    "keywords": [
-      "onboarding",
-      "offboarding"
-    ],
-    "answer": "For endpoint onboarding/offboarding, we can automate: building the base image, joining the device to the domain, installing role-based apps, applying baseline security policies, and collecting logs before a device is wiped or re-assigned."
+    "answer": "Patch failed: reboot, retry update, run troubleshooter, check compliance portal."
   }
 ]
